@@ -9,6 +9,9 @@ tags:
 > [!Info] Used
 > - Parent’s Bible Study during Dec 2025
 
+> [!NOTE] Related
+> [[Sermon on the Mount Anxiety]]
+
 # Introduction
 
 We must remember that the Sermon on the Mount is being taught:
