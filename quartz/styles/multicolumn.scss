@@ -1,0 +1,227 @@
+/* Adapted from MCL Multi Column by Faiz Khuzaimah (https://github.com/efemkay)
+   Original: obsidian-modular-css-layout / MCL Multi Column.css v0.10.0
+   Adapted for Quartz static site generator — Obsidian-specific selectors removed,
+   CSS variables mapped to Quartz equivalents. */
+
+
+/* === Variables === */
+
+body {
+  --callout-min-width: 200px;
+  --callout-nowrap-min-width: 250px;
+  --callout-gap: 1em;
+  --callout-margin: 0px;
+
+  --float-small-width: 300px;
+  --float-medium-width: 400px;
+  --float-large-width: 600px;
+}
+
+
+/* === General Width Definitions === */
+
+/* Fixed width (fw) — quadruple .callout to win specificity over MCC flex rules */
+[data-callout-metadata*="fw"].callout.callout.callout { flex-grow: 0; flex-shrink: 0; }
+[data-callout-metadata*="fw1"].callout.callout.callout.callout { flex-basis: 100px; width: 100px; }
+[data-callout-metadata*="fw2"].callout.callout.callout.callout { flex-basis: 200px; width: 200px; }
+[data-callout-metadata*="fw3"].callout.callout.callout.callout { flex-basis: 300px; width: 300px; }
+[data-callout-metadata*="fw4"].callout.callout.callout.callout { flex-basis: 400px; width: 400px; }
+[data-callout-metadata*="fw5"].callout.callout.callout.callout { flex-basis: 500px; width: 500px; }
+[data-callout-metadata*="fw6"].callout.callout.callout.callout { flex-basis: 600px; width: 600px; }
+[data-callout-metadata*="fw7"].callout.callout.callout.callout { flex-basis: 700px; width: 700px; }
+[data-callout-metadata*="fw8"].callout.callout.callout.callout { flex-basis: 800px; width: 800px; }
+[data-callout-metadata*="fw9"].callout.callout.callout.callout { flex-basis: 900px; width: 900px; }
+
+/* Percentage width (pw) */
+[data-callout-metadata*="pw1"].callout.callout.callout.callout { flex-basis: 10%; width: 10%; }
+[data-callout-metadata*="pw2"].callout.callout.callout.callout { flex-basis: 18%; width: 18%; }
+[data-callout-metadata*="pw3"].callout.callout.callout.callout { flex-basis: 28%; width: 28%; }
+[data-callout-metadata*="pw4"].callout.callout.callout.callout { flex-basis: 38%; width: 38%; }
+[data-callout-metadata*="pw5"].callout.callout.callout.callout { flex-basis: 48%; width: 48%; }
+[data-callout-metadata*="pw6"].callout.callout.callout.callout { flex-basis: 58%; width: 58%; }
+[data-callout-metadata*="pw7"].callout.callout.callout.callout { flex-basis: 68%; width: 68%; }
+[data-callout-metadata*="pw8"].callout.callout.callout.callout { flex-basis: 78%; width: 78%; }
+[data-callout-metadata*="pw9"].callout.callout.callout.callout { flex-basis: 88%; width: 88%; }
+
+/* Dynamic width / flex ratio (dw) */
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="mw0"].callout.callout { flex-basis: 0; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw1"].callout { flex: 1 0 auto; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw2"].callout { flex: 2 0 auto; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw3"].callout { flex: 3 0 auto; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw4"].callout { flex: 4 0 auto; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw5"].callout { flex: 5 0 auto; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw6"].callout { flex: 6 0 auto; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw7"].callout { flex: 7 0 auto; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw8"].callout { flex: 8 0 auto; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="dw9"].callout { flex: 9 0 auto; }
+
+
+/* === Multi Column Callout (MCC) === */
+
+[data-callout="multi-column"].callout {
+  --callout-blend-mode: normal;
+}
+
+/* Hide title, make callout-content transparent for flex layout */
+[data-callout="multi-column"].callout > .callout-title { display: none; }
+[data-callout="multi-column"].callout > .callout-content { display: contents; }
+
+/* Main flex container — remove box formatting */
+[data-callout="multi-column"].callout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--callout-gap);
+  background: unset;
+  border: unset;
+  margin-inline: unset;
+  margin-block: 1rem;
+  padding: unset;
+  clear: both;
+}
+
+/* Sub-callouts grow vertically in flex column */
+[data-callout="multi-column"].callout .callout:not([data-callout="multi-column"]) {
+  display: flex;
+  flex-direction: column;
+}
+[data-callout="multi-column"].callout:not(.is-collapsed) .callout {
+  margin-inline: var(--callout-margin);
+  margin-block: var(--callout-margin);
+}
+[data-callout="multi-column"].callout .callout .callout-content { flex-grow: 1; }
+
+/* Flex children sizing — div covers sub-callouts, ul/blockquote/p for other content */
+[data-callout="multi-column"].callout > .callout-content > *:is(div, ul, blockquote, p) {
+  flex: 1 1 var(--callout-min-width);
+  margin: 0;
+}
+
+/* wide-x metadata for subcallout flexible width */
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="min-0"] { flex-basis: 0; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="wide-2"] { flex-grow: 2; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="wide-3"] { flex-grow: 3; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="wide-4"] { flex-grow: 4; }
+[data-callout="multi-column"].callout > .callout-content > [data-callout-metadata*="wide-5"] { flex-grow: 5; }
+
+@media (min-width: 500px) {
+  [data-callout="multi-column"].callout > .callout-content .callout.is-collapsed {
+    box-shadow: unset;
+    height: min-content;
+  }
+}
+
+/* Remove box-shadow and margin-top from MCC container */
+[data-callout="multi-column"].callout > .callout-content { margin-top: unset; }
+[data-callout="multi-column"].callout:not(.is-collapsed) { box-shadow: unset; }
+
+
+/* -- MCC Variant: Flexible Height -- */
+[data-callout="multi-column"][data-callout-metadata*="flex-h"].callout { align-items: flex-start; }
+
+
+/* -- MCC Variant: Fixed Columns -- */
+[data-callout="multi-column"][data-callout-metadata*="col3"]:not([data-callout-metadata*="icons"]).callout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+
+/* -- MCC Variant: Icons -- */
+[data-callout="multi-column"][data-callout-metadata*="icons"] {
+  &.callout { justify-content: center; }
+  &.callout .callout { display: flex; flex-direction: row; flex-wrap: wrap; }
+  &.callout.callout .callout-content > p { flex-grow: 1; text-align: center; }
+
+  &[data-callout-metadata*="col2"].callout.callout .callout-content > p { flex-basis: 40%; }
+  &[data-callout-metadata*="col3"].callout.callout .callout-content > p { flex-basis: 30%; }
+  &[data-callout-metadata*="col4"].callout.callout .callout-content > p { flex-basis: 22%; }
+  &[data-callout-metadata*="col5"].callout.callout .callout-content > p { flex-basis: 18%; }
+
+  &.callout p:first-child { margin-top: revert; }
+}
+
+
+/* -- MCC Variant: Fixed Width -- */
+[data-callout="multi-column"][data-callout-metadata*="center-fixed"].callout { justify-content: center; }
+[data-callout="multi-column"][data-callout-metadata*="left-fixed"].callout { justify-content: flex-start; }
+[data-callout="multi-column"][data-callout-metadata*="right-fixed"].callout { justify-content: flex-end; }
+[data-callout="multi-column"][data-callout-metadata*="fixed"].callout > .callout-content > *:is(div, ul) { flex-grow: 0; }
+
+[data-callout="multi-column"][data-callout-metadata*="fixed"][data-callout-metadata*="small"].callout > .callout-content > *:is(div, ul) { flex-basis: calc(var(--float-small-width) * 0.5); }
+[data-callout="multi-column"][data-callout-metadata*="fixed"][data-callout-metadata*="medium"].callout > .callout-content > *:is(div, ul) { flex-basis: calc(var(--float-medium-width) * 0.65); }
+[data-callout="multi-column"][data-callout-metadata*="fixed"][data-callout-metadata*="large"].callout > .callout-content > *:is(div, ul) { flex-basis: calc(var(--float-large-width) * 0.8); }
+
+
+/* -- MCC Variant: No Wrap (single row with horizontal scrollbar) -- */
+[data-callout="multi-column"][data-callout-metadata*="no-wrap"].callout {
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+
+  & > .callout-content > *:is(div, ul) { flex-shrink: 0; }
+}
+
+.callout[data-callout="multi-column"][data-callout-metadata*="no-wrap"] .callout[data-callout-metadata*="small"] { flex-basis: 300px; }
+.callout[data-callout="multi-column"][data-callout-metadata*="no-wrap"] .callout[data-callout-metadata*="medium"] { flex-basis: 400px; }
+.callout[data-callout="multi-column"][data-callout-metadata*="no-wrap"] .callout[data-callout-metadata*="large"] { flex-basis: 600px; }
+
+/* Align center for items in callout */
+[data-callout="multi-column"] .callout[data-callout-metadata*="center"] { text-align: center; }
+
+
+/* === Blank Container === */
+
+[data-callout*="blank"].callout { --callout-blend-mode: normal; }
+[data-callout*="blank"].callout > .callout-title { display: none; }
+[data-callout*="blank"].callout > .callout-content { display: contents; }
+[data-callout*="blank"].callout {
+  border: 0;
+  padding-top: 0;
+  padding-inline: 5px;
+  background: unset;
+  box-shadow: unset;
+}
+
+/* No Margin option */
+[data-callout-metadata*="no-margin"]:is(.callout.callout, .callout.callout .callout-content) { margin: 0; padding: 0; }
+
+/* No margin for only-child paragraph in blank container */
+[data-callout*="blank"].callout .callout-content > p:only-child { margin-block: 0; }
+
+
+/* === Callout card styling (two-tone: tinted header, dark body) === */
+
+.callout[data-callout]:not([data-callout="multi-column"]):not([data-callout*="blank"]) {
+  background-color: color-mix(in srgb, var(--background-primary-alt, #2a241e) 50%, var(--background-primary, #2e261f));
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.18), 0px 2px 6px 0px rgba(0, 0, 0, 0.28);
+  outline: none;
+  margin-block: 1rem;
+}
+
+.callout[data-callout]:not([data-callout="multi-column"]):not([data-callout*="blank"]) > .callout-title {
+  background-color: color-mix(in srgb, var(--color) 32.5%, var(--background-primary, #2e261f));
+  box-shadow: inset 0px -1px 1px 0px rgba(0, 0, 0, 0.25), inset 0px 1px 1px 0px rgba(255, 255, 255, 0.1);
+  gap: 10px;
+  padding: 14px 16px;
+  align-items: center;
+}
+
+/* Content may be in a .callout-content div OR bare elements (when single-paragraph) */
+.callout[data-callout]:not([data-callout="multi-column"]):not([data-callout*="blank"]) > .callout-content {
+  background-color: transparent;
+  padding: 16px;
+}
+
+.callout[data-callout]:not([data-callout="multi-column"]):not([data-callout*="blank"]) > p,
+.callout[data-callout]:not([data-callout="multi-column"]):not([data-callout*="blank"]) > ul,
+.callout[data-callout]:not([data-callout="multi-column"]):not([data-callout*="blank"]) > ol {
+  padding: 0 16px 16px;
+}
+
+.callout[data-callout]:not([data-callout="multi-column"]):not([data-callout*="blank"]) > .callout-content > :first-child,
+.callout[data-callout]:not([data-callout="multi-column"]):not([data-callout*="blank"]) > p:last-child {
+  margin-bottom: 0;
+}
