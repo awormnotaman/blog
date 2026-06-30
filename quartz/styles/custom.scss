@@ -1,28 +1,70 @@
 @use "./base.scss";
+@use "./multicolumn.scss";
 
 // put your custom CSS here!
 @use "themes";
 
 
+/* OpenDyslexic Nerd Font — UI/headers */
 @font-face {
-  font-family: 'OpenDyslexic';
-  src: url('./fonts/OpenDyslexic-Regular.otf') format('opentype');
+  font-family: 'OpenDyslexic Nerd Font';
+  src: url('./fonts/OpenDyslexicNerdFont-Regular.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'OpenDyslexic';
-  src: url('./fonts/OpenDyslexic-Bold.otf') format('opentype');
+  font-family: 'OpenDyslexic Nerd Font';
+  src: url('./fonts/OpenDyslexicNerdFont-Bold.otf') format('opentype');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
-  font-family: 'OpenDyslexic';
-  src: url('./fonts/OpenDyslexic-Italic.otf') format('opentype');
+  font-family: 'OpenDyslexic Nerd Font';
+  src: url('./fonts/OpenDyslexicNerdFont-Italic.otf') format('opentype');
   font-weight: normal;
   font-style: italic;
 }
+@font-face {
+  font-family: 'OpenDyslexic Nerd Font';
+  src: url('./fonts/OpenDyslexicNerdFont-BoldItalic.otf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* OpenDyslexic Nerd Font Propo — body text */
+@font-face {
+  font-family: 'OpenDyslexic Nerd Font Propo';
+  src: url('./fonts/OpenDyslexicNerdFontPropo-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenDyslexic Nerd Font Propo';
+  src: url('./fonts/OpenDyslexicNerdFontPropo-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'OpenDyslexic Nerd Font Propo';
+  src: url('./fonts/OpenDyslexicNerdFontPropo-Italic.otf') format('opentype');
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'OpenDyslexic Nerd Font Propo';
+  src: url('./fonts/OpenDyslexicNerdFontPropo-BoldItalic.otf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* OpenDyslexicM Nerd Font Mono — code */
+@font-face {
+  font-family: 'OpenDyslexicM Nerd Font Mono';
+  src: url('./fonts/OpenDyslexicMNerdFontMono-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
-  font-family: 'Open-Dyslexic', sans-serif;
+  font-family: 'OpenDyslexic Nerd Font Propo', sans-serif;
 }

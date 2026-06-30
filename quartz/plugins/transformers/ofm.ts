@@ -506,6 +506,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
 
                 // add properties to base blockquote
                 node.data = {
+                  hName: "div",
                   hProperties: {
                     ...(node.data?.hProperties ?? {}),
                     className: classNames.join(" "),
